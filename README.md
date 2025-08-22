@@ -1,6 +1,6 @@
 # Smart College Companion Platform 🎓
 
-A Spring Boot + Java full-stack project to help students manage academics, events, and resources.
+A Spring Boot + Java full-stack project to help students manage academics, event, and resources.
 
 ## Features (Planned)
 - Student portal with notices
