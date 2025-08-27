@@ -2,9 +2,7 @@ package com.collegecompanion.controller;
 
 import com.collegecompanion.model.Event;
 import com.collegecompanion.service.EventService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -20,5 +18,21 @@ public class EventController {
     @GetMapping
     public List<Event> getEvents() {
         return eventService.getEvents();
+    }
+
+    @PostMapping
+    public Event addEvent(@RequestBody Event event) {
+        return eventService.addEvent(event);
+    }
+
+    @PutMapping("/{id}")
+    public Event updateEvent(@PathVariable Integer id, @RequestBody Event event) {
+        return eventService.updateEvent(id,event);
+    }
+
+    @DeleteMapping("/{id}")
+    public String deleteEvent(@PathVariable Integer id) {
+        eventService.deleteEvent(id);
+        return "Event deleted with id "+id;
     }
 }

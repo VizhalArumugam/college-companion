@@ -1,53 +1,44 @@
 package com.collegecompanion.model;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
 import java.util.Objects;
 
+@Entity
 public class Courses {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String title;
-    private String instructor;
+    private String description;
 
     public Courses() {}
 
-    public Courses(int id, String title, String instructor) {
+    public Courses(int id, String title, String description) {
         this.id = id;
         this.title = title;
-        this.instructor = instructor;
+        this.description = description;
     }
 
     public int getId() {
         return id;
     }
-
     public void setId(int id) {
         this.id = id;
     }
-
     public String getTitle() {
         return title;
     }
-
     public void setTitle(String title) {
         this.title = title;
     }
-
-    public String getInstructor() {
-        return instructor;
+    public String getDescription() {
+        return description;
     }
-
-    public void setInstructor(String instructor) {
-        this.instructor = instructor;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()) return false;
-        Courses courses = (Courses) o;
-        return id == courses.id && Objects.equals(title, courses.title) && Objects.equals(instructor, courses.instructor);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, title, instructor);
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

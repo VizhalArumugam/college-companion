@@ -1,6 +1,7 @@
 package com.collegecompanion.service;
 
 import com.collegecompanion.model.Notice;
+import com.collegecompanion.repository.NoticeRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
@@ -8,11 +9,30 @@ import java.util.List;
 
 @Service
 public class NoticeService {
+    public final NoticeRepository noticeRepository;
+
+    public NoticeService(NoticeRepository noticeRepository) {
+        this.noticeRepository = noticeRepository;
+    }
+
     public List<Notice> getNotices() {
-        return Arrays.asList(
-                new Notice(1, "Holiday on 29th Aug", "2025-08-29"),
-                new Notice(2, "Hackathon Registration Open", "2025-09-01"),
-                new Notice(3, "Midterm Exams Start", "2025-09-15")
-        );
+        return noticeRepository.findAll();
+    }
+    public Notice addNotice(Notice notice) {
+        return noticeRepository.save(notice);
+    }
+
+    public Notice updateNotice(Integer id, Notice update) {
+        return noticeRepository.findById(id)
+                .map(notice -> {
+                    notice.setContent(update.getContent());
+                    notice.setDate(update.getDate());
+                    return noticeRepository.save(notice);
+                })
+                .orElseThrow(() -> new RuntimeException("Notice not found with id: " + id));
+    }
+
+    public void deleteNotice(Integer id){
+        noticeRepository.deleteById(id);
     }
 }

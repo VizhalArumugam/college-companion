@@ -1,18 +1,39 @@
 package com.collegecompanion.service;
 
 import com.collegecompanion.model.Event;
+import com.collegecompanion.repository.EventRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
 import java.util.List;
 
 @Service
 public class EventService {
+    public final EventRepository eventRepository;
+
+    public EventService(EventRepository eventRepository) {
+        this.eventRepository = eventRepository;
+    }
+
     public List<Event> getEvents() {
-        return Arrays.asList(
-                new Event(1, "Hackathon", "2025-09-10", "Auditorium"),
-                new Event(2, "Cultural Fest", "2025-10-05", "Main Ground"),
-                new Event(3, "Guest Lecture: AI Trends", "2025-09-20", "Seminar Hall")
-        );
+        return eventRepository.findAll();
+    }
+
+    public Event addEvent(Event event) {
+        return eventRepository.save(event);
+    }
+
+    public Event updateEvent(Integer id,Event update) {
+        return eventRepository.findById(id)
+                .map(event -> {
+                    event.setName(update.getName());
+                    event.setDate(update.getDate());
+                    event.setLocation(update.getLocation());
+                    return eventRepository.save(event);
+                })
+                .orElseThrow(() -> new RuntimeException("Event not found with id "+id));
+    }
+
+    public void deleteEvent(Integer id) {
+        eventRepository.deleteById(id);
     }
 }
