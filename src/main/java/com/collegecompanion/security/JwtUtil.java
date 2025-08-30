@@ -9,7 +9,7 @@ import java.util.Date;
 
 public class JwtUtil {
     private static final Key key = Keys.hmacShaKeyFor("MySecretKeyForJWTAuthMySecretKeyForJWT".getBytes());// change for prod
-    private static final long EXPIRATION_TIME = 1000*60; // 1 hr
+    private static final long EXPIRATION_TIME = 1000*60*60*24; // 1 hr
 
     public static String generateToken(String username,String role) {
         if (username == null || role == null) {

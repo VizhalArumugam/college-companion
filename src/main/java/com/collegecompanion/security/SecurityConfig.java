@@ -33,6 +33,7 @@ public class SecurityConfig {
                         .requestMatchers("/faculty/**").hasAuthority("FACULTY")
                         .requestMatchers("/student/**").hasAuthority("STUDENT")
                         // any other requires authentication
+                        .requestMatchers("/api/files/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
